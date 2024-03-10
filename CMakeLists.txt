@@ -59,6 +59,8 @@ option(MNN_BUILD_OPENCV "Build OpenCV api in MNN." OFF)
 option(MNN_BUILD_LLM "Build llm library based MNN." OFF)
 option(MNN_INTERNAL "Build with MNN internal features, such as model authentication, metrics logging" OFF)
 option(MNN_JNI "Build MNN Jni for java to use" OFF)
+#自定义选项
+option(MNN_BUILD_DEMO_MY "Build own demo" OFF)
 
 IF (NOT DEFINED MNN_USE_SPARSE_COMPUTE)
    set(MNN_USE_SPARSE_COMPUTE ON)
@@ -748,6 +750,11 @@ list(REMOVE_ITEM MNN_TARGETS MNN)
 IF(MNN_BUILD_DEMO)
 include(${CMAKE_CURRENT_LIST_DIR}/demo/exec/CMakeLists.txt)
 ENDIF()
+#这里是自己的demo编译内容（以下）
+IF(MNN_BUILD_DEMO_MY)
+include(${CMAKE_CURRENT_LIST_DIR}/test_minist/CMakeLists.txt)
+ENDIF()
+#这里是自己的demo编译内容（以上）
 IF(MNN_BUILD_TOOLS)
 include(${CMAKE_CURRENT_LIST_DIR}/tools/cpp/CMakeLists.txt)
 ENDIF()
