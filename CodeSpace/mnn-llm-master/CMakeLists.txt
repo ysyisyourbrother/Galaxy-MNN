@@ -32,8 +32,8 @@ else()
     # compile dynamic so, support Linux/Mac
     add_library(llm SHARED ${SRCS})
     set_target_properties(llm PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
-
-    target_link_libraries(llm MNN MNN_Express)
+#修改这行添加对libMNN_CL.so的依赖
+    target_link_libraries(llm MNN MNN_Express MNN_CL)
     if (USING_VISUAL_MODEL)
         target_link_libraries(llm MNNOpenCV)
     endif()

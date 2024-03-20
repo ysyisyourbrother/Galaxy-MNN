@@ -212,14 +212,23 @@ void Llm::reset() {
 void Llm::load(const std::string& model_dir) {
     model_dir_ = model_dir;
     // init
+    //----用CPU后端-----
     ScheduleConfig config;
     BackendConfig cpuBackendConfig;
     config.type          = MNN_FORWARD_CPU;
-    // config.type          = MNN_FORWARD_OPENCL;
     config.numThread     = 4;
     cpuBackendConfig.precision = BackendConfig::Precision_Low;
     cpuBackendConfig.memory = BackendConfig::Memory_Low;
     config.backendConfig = &cpuBackendConfig;
+    //----用OpenCL后端----
+    // ScheduleConfig config;
+    // BackendConfig openclBackendConfig;
+    // config.type          = MNN_FORWARD_OPENCL;
+    // config.numThread     = 4;
+    // openclBackendConfig.precision = BackendConfig::Precision_Low;
+    // openclBackendConfig.memory = BackendConfig::Memory_Low;
+    // config.backendConfig = &openclBackendConfig;
+    //修改了上面的内容
     runtime_manager_.reset(Executor::RuntimeManager::createRuntimeManager(config));
     runtime_manager_->setHint(MNN::Interpreter::MEM_ALLOCATOR_TYPE, 0);
     if (config.type == MNN_FORWARD_OPENCL) {
@@ -812,14 +821,23 @@ void Embedding::load(const std::string& model_dir) {
     }
     model_dir_ = model_dir;
     // init
+    //----用CPU后端----
     ScheduleConfig config;
     BackendConfig cpuBackendConfig;
     config.type          = MNN_FORWARD_CPU;
-    // config.type          = MNN_FORWARD_OPENCL;
     config.numThread     = 4;
     cpuBackendConfig.precision = BackendConfig::Precision_Low;
     cpuBackendConfig.memory = BackendConfig::Memory_Low;
     config.backendConfig = &cpuBackendConfig;
+     //----用OpenCL后端----
+    // ScheduleConfig config;
+    // BackendConfig openclBackendConfig;
+    // config.type          = MNN_FORWARD_OPENCL;
+    // config.numThread      = 4;
+    // openclBackendConfig.precision = BackendConfig::Precision_Low;
+    // openclBackendConfig.memory = BackendConfig::Memory_Low;
+    // config.backendConfig = &openclBackendConfig;
+    //修改了上面的内容
     runtime_manager_.reset(Executor::RuntimeManager::createRuntimeManager(config));
     printf("load tokenizer\n");
     // 1. load vocab
